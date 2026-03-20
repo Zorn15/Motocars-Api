@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Vender tu Auto - MotorsCars</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: { "primary": "#1152d4", "background-light": "#f6f6f8", "background-dark": "#101622" },
+          fontFamily: { "display": ["Inter"] },
+          borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+
+<!-- Encabezado -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between border-b border-slate-200 dark:border-slate-800">
+  <a href="index.html" class="flex size-12 items-center justify-center">
+    <span class="material-symbols-outlined">arrow_back</span>
+  </a>
+  <h2 id="pageTitle" class="text-lg font-bold leading-tight tracking-tight flex-1 text-center">Vender tu Auto</h2>
+  <div class="size-12"></div>
+</div>
+
+<div class="max-w-2xl mx-auto w-full px-4 py-6">
+  <div class="pb-6">
+    <h1 id="formHeading" class="text-3xl font-bold leading-tight tracking-tight">Datos del Vehículo</h1>
+    <p class="text-slate-600 dark:text-slate-400 mt-2">Completa la información para publicar tu vehículo.</p>
+  </div>
+
+  <form id="carForm" class="space-y-6">
+    <!-- Marca y Modelo -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col">
+        <label class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Marca *</label>
+        <select id="brandSelect" required class="form-select w-full rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-primary focus:border-primary h-12">
+          <option value="">Seleccionar marca...</option>
+        </select>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Modelo *</label>
+        <input id="modelInput" required class="form-input w-full rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="Ej. Camry" type="text" />
+      </div>
+    </div>
+
+    <!-- Año y Kilometraje -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col">
+        <label class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Año *</label>
+        <input id="yearInput" required class="form-input w-full rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="Ej. 2023" type="number" min="1900" max="2030" />
+      </div>
+      <div class="flex flex-col">
+        <label class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Kilometraje (km)</label>
+        <input id="mileageInput" class="form-input w-full rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="Ej. 25000" type="number" min="0" />
+      </div>
+    </div>
+
+    <!-- Precio -->
+    <div class="flex flex-col">
+      <label class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Precio ($) *</label>
+      <div class="relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+        <input id="priceInput" required class="form-input w-full pl-8 rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="0" type="number" min="0" step="0.01" />
+      </div>
+    </div>
+
+    <!-- Combustible y Transmisión -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col">
+        <label class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Tipo de Combustible</label>
+        <select id="fuelSelect" class="form-select w-full rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-primary focus:border-primary h-12">
+          <option>Gasolina</option>
+          <option>Eléctrico</option>
+          <option>Híbrido</option>
+          <option>Diésel</option>
+        </select>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Transmisión</label>
+        <select id="transmissionSelect" class="form-select w-full rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-primary focus:border-primary h-12">
+          <option>Automático</option>
+          <option>Manual</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Fotos (múltiples, máximo 10) -->
+    <div class="flex flex-col">
+      <label class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Fotos del Vehículo <span class="text-slate-400 font-normal">(máx. 10)</span></label>
+
+      <!-- Vista previa de imágenes -->
+      <div id="imagePreviewGrid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 mb-3" style="display:none;">
+      </div>
+
+      <!-- Botón subir fotos -->
+      <div id="uploadArea" class="relative border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-8 text-center hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group">
+        <input id="imageFileInput" type="file" accept="image/*" multiple class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+        <div class="flex flex-col items-center gap-3">
+          <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+            <span class="material-symbols-outlined text-primary text-2xl">add_a_photo</span>
+          </div>
+          <div>
+            <p class="font-semibold text-slate-700 dark:text-slate-300">Subir Fotos</p>
+            <p class="text-xs text-slate-500 mt-1">Haz clic o arrastra imágenes aquí</p>
+            <p id="photoCount" class="text-xs text-slate-400 mt-1">0 / 10 fotos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WhatsApp -->
+    <div class="flex flex-col">
+      <label class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">WhatsApp de Contacto</label>
+      <div class="relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-green-500">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.37 0-4.567-.82-6.298-2.192l-.44-.365-3.26 1.093 1.093-3.26-.365-.44A9.955 9.955 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+        </span>
+        <input id="whatsappInput" class="form-input w-full pl-12 rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-green-500 focus:border-green-500 h-12" placeholder="Ej. 3001234567" type="tel" />
+      </div>
+      <p class="text-xs text-slate-400 mt-1">Número con código de país (ej. 573001234567) para que te contacten por WhatsApp</p>
+    </div>
+
+    <!-- Descripción -->
+    <div class="flex flex-col">
+      <label class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Descripción</label>
+      <textarea id="descriptionInput" class="form-textarea w-full rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-primary focus:border-primary p-4" placeholder="Cuéntale a los compradores sobre tu auto..." rows="4"></textarea>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+      <a href="index.html" class="flex-1 px-6 py-4 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-center">
+        Cancelar
+      </a>
+      <button type="submit" class="flex-1 px-6 py-4 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold shadow-lg shadow-primary/20 transition-all">
+        <span id="submitText">Publicar Auto</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<script src="/static/app.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const editId = params.get("id");
+  const isEdit = !!editId;
+
+  // --- Manejo de múltiples imágenes ---
+  const MAX_IMAGES = 10;
+  let imageList = []; // array of base64/URL strings
+
+  const fileInput = document.getElementById("imageFileInput");
+  const previewGrid = document.getElementById("imagePreviewGrid");
+  const uploadArea = document.getElementById("uploadArea");
+  const photoCount = document.getElementById("photoCount");
+
+  function updatePreview() {
+    photoCount.textContent = `${imageList.length} / ${MAX_IMAGES} fotos`;
+
+    if (imageList.length === 0) {
+      previewGrid.style.display = "none";
+      return;
+    }
+
+    previewGrid.style.display = "grid";
+    previewGrid.innerHTML = imageList.map((src, i) => `
+      <div class="relative group/img aspect-square rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+        <img src="${src}" class="w-full h-full object-cover" alt="Foto ${i + 1}" />
+        <button type="button" onclick="removeImage(${i})" class="absolute top-1 right-1 bg-red-600 hover:bg-red-700 text-white p-0.5 rounded-full shadow-lg transition-colors opacity-0 group-hover/img:opacity-100">
+          <span class="material-symbols-outlined text-sm">close</span>
+        </button>
+        <span class="absolute bottom-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded-full">${i + 1}</span>
+      </div>
+    `).join("");
+
+    if (imageList.length >= MAX_IMAGES) {
+      uploadArea.style.display = "none";
+    } else {
+      uploadArea.style.display = "block";
+    }
+  }
+
+  function removeImage(index) {
+    imageList.splice(index, 1);
+    updatePreview();
+  }
+
+  function addImages(files) {
+    const remaining = MAX_IMAGES - imageList.length;
+    const toProcess = Array.from(files).slice(0, remaining);
+
+    toProcess.forEach(file => {
+      if (!file.type.startsWith("image/")) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        imageList.push(ev.target.result);
+        updatePreview();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    if (files.length > remaining) {
+      showToast(`Solo se pueden subir ${MAX_IMAGES} fotos en total`, "error");
+    }
+  }
+
+  fileInput.addEventListener("change", (e) => {
+    addImages(e.target.files);
+    fileInput.value = "";
+  });
+
+  // Drag & drop
+  uploadArea.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    uploadArea.classList.add("border-primary", "bg-primary/10");
+  });
+  uploadArea.addEventListener("dragleave", () => {
+    uploadArea.classList.remove("border-primary", "bg-primary/10");
+  });
+  uploadArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove("border-primary", "bg-primary/10");
+    addImages(e.dataTransfer.files);
+  });
+
+  // --- Inicialización ---
+  async function init() {
+    const brands = await getBrands();
+    const select = document.getElementById("brandSelect");
+    brands.forEach(b => {
+      const opt = document.createElement("option");
+      opt.value = b.id;
+      opt.textContent = b.name;
+      select.appendChild(opt);
+    });
+
+    if (isEdit) {
+      document.getElementById("pageTitle").textContent = "Editar Auto";
+      document.getElementById("formHeading").textContent = "Editar Vehículo";
+      document.getElementById("submitText").textContent = "Guardar Cambios";
+      try {
+        const car = await getCar(editId);
+        document.getElementById("brandSelect").value = car.brand_id;
+        document.getElementById("modelInput").value = car.model;
+        document.getElementById("yearInput").value = car.year;
+        document.getElementById("mileageInput").value = car.mileage;
+        document.getElementById("priceInput").value = car.price;
+        document.getElementById("fuelSelect").value = car.fuel_type;
+        document.getElementById("transmissionSelect").value = car.transmission;
+        document.getElementById("descriptionInput").value = car.description || "";
+        document.getElementById("whatsappInput").value = car.whatsapp || "";
+
+        if (car.images && car.images.length > 0) {
+          imageList = car.images.map(img => img.image_url);
+          updatePreview();
+        } else if (car.image_url) {
+          imageList = [car.image_url];
+          updatePreview();
+        }
+      } catch (e) {
+        showToast("No se pudieron cargar los datos del auto", "error");
+      }
+    }
+  }
+
+  document.getElementById("carForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+      brand_id: parseInt(document.getElementById("brandSelect").value),
+      model: document.getElementById("modelInput").value.trim(),
+      year: parseInt(document.getElementById("yearInput").value),
+      mileage: parseInt(document.getElementById("mileageInput").value) || 0,
+      price: parseFloat(document.getElementById("priceInput").value),
+      fuel_type: document.getElementById("fuelSelect").value,
+      transmission: document.getElementById("transmissionSelect").value,
+      image_url: imageList.length > 0 ? imageList[0] : null,
+      images: imageList.length > 0 ? imageList : null,
+      whatsapp: document.getElementById("whatsappInput").value.trim() || null,
+      description: document.getElementById("descriptionInput").value.trim() || null,
+    };
+
+    try {
+      if (isEdit) {
+        await updateCar(editId, data);
+        showToast("Auto actualizado exitosamente");
+      } else {
+        await createCar(data);
+        showToast("Auto publicado exitosamente");
+      }
+      setTimeout(() => window.location.href = "index.html", 1000);
+    } catch (e) {
+      showToast(e.message, "error");
+    }
+  });
+
+  init();
+</script>
+</body>
+</html>

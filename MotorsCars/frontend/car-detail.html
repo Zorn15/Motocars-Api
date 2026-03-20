@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Detalle del Auto - MotorsCars</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: { "primary": "#1152d4", "background-light": "#f6f6f8", "background-dark": "#101622" },
+          fontFamily: { "display": ["Inter"] },
+          borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen">
+
+<!-- Encabezado -->
+<div class="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 justify-between border-b border-slate-200 dark:border-slate-800">
+  <a href="index.html" class="flex size-10 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-800">
+    <span class="material-symbols-outlined">arrow_back</span>
+  </a>
+  <h2 class="text-lg font-bold leading-tight tracking-tight flex-1 text-center">Detalle del Auto</h2>
+  <div class="size-10"></div>
+</div>
+
+<main class="max-w-3xl mx-auto pb-32">
+  <div id="loading" class="text-center py-20">
+    <p class="text-slate-500">Cargando detalles del auto...</p>
+  </div>
+
+  <div id="carDetail" class="hidden">
+    <!-- Carrusel de Imágenes -->
+    <div class="w-full aspect-[16/9] bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden relative">
+      <div id="detailCarousel" class="w-full h-full"></div>
+      <span id="carImagePlaceholder" class="material-symbols-outlined text-7xl text-slate-400 absolute">directions_car</span>
+    </div>
+
+    <!-- Precio y Título -->
+    <section class="px-4 pt-6">
+      <span id="carPrice" class="text-primary font-bold text-3xl tracking-tight"></span>
+      <h1 id="carTitle" class="text-2xl font-extrabold leading-tight tracking-tight mt-1"></h1>
+      <div class="flex items-center gap-2 mt-2 text-slate-500 dark:text-slate-400">
+        <span class="material-symbols-outlined text-sm">sell</span>
+        <span id="carBrand" class="text-sm"></span>
+      </div>
+    </section>
+
+    <!-- WhatsApp -->
+    <section id="whatsappSection" class="px-4 pt-6 hidden">
+      <a id="whatsappBtn" href="#" target="_blank" class="flex items-center justify-center gap-3 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl transition-colors text-lg">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.37 0-4.567-.82-6.298-2.192l-.44-.365-3.26 1.093 1.093-3.26-.365-.44A9.955 9.955 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+        Contactar por WhatsApp
+      </a>
+    </section>
+
+    <!-- Especificaciones -->
+    <section class="px-4 pt-8">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="bg-slate-100 dark:bg-slate-800/50 p-4 rounded-xl flex flex-col items-center gap-2 border border-slate-200 dark:border-slate-800">
+          <span class="material-symbols-outlined text-primary">calendar_today</span>
+          <p class="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Año</p>
+          <p id="carYear" class="font-bold text-sm"></p>
+        </div>
+        <div class="bg-slate-100 dark:bg-slate-800/50 p-4 rounded-xl flex flex-col items-center gap-2 border border-slate-200 dark:border-slate-800">
+          <span class="material-symbols-outlined text-primary">speed</span>
+          <p class="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Kilometraje</p>
+          <p id="carMileage" class="font-bold text-sm"></p>
+        </div>
+        <div class="bg-slate-100 dark:bg-slate-800/50 p-4 rounded-xl flex flex-col items-center gap-2 border border-slate-200 dark:border-slate-800">
+          <span class="material-symbols-outlined text-primary">settings_suggest</span>
+          <p class="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Transmisión</p>
+          <p id="carTransmission" class="font-bold text-sm"></p>
+        </div>
+        <div class="bg-slate-100 dark:bg-slate-800/50 p-4 rounded-xl flex flex-col items-center gap-2 border border-slate-200 dark:border-slate-800">
+          <span class="material-symbols-outlined text-primary">local_gas_station</span>
+          <p class="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Combustible</p>
+          <p id="carFuel" class="font-bold text-sm"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Descripción -->
+    <section class="px-4 pt-8">
+      <h3 class="text-lg font-bold mb-3">Descripción</h3>
+      <p id="carDescription" class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm"></p>
+    </section>
+
+    <!-- Acciones -->
+    <section class="px-4 pt-8 flex gap-3">
+      <a id="editBtn" href="#" class="flex-1 flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl transition-colors">
+        <span class="material-symbols-outlined">edit</span> Editar
+      </a>
+      <button id="deleteBtn" class="flex-1 flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-colors">
+        <span class="material-symbols-outlined">delete</span> Eliminar
+      </button>
+    </section>
+  </div>
+
+  <div id="notFound" class="hidden text-center py-20">
+    <span class="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-700">error</span>
+    <p class="mt-4 text-slate-500">Auto no encontrado.</p>
+    <a href="index.html" class="mt-4 inline-block text-primary font-semibold">Volver al listado</a>
+  </div>
+</main>
+
+<script src="/static/app.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const carId = params.get("id");
+
+  let detailSlide = 0;
+
+  function initDetailCarousel(images) {
+    const container = document.getElementById("detailCarousel");
+    const placeholder = document.getElementById("carImagePlaceholder");
+
+    if (images.length === 0) return;
+
+    placeholder.classList.add("hidden");
+
+    container.innerHTML = `
+      <div class="relative w-full h-full">
+        ${images.map((src, i) => `
+          <img src="${src}" alt="Foto ${i+1}" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${i === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}" data-dslide="${i}" />
+        `).join("")}
+        ${images.length > 1 ? `
+          <button onclick="slideDetail(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors z-10">
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          <button onclick="slideDetail(1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors z-10">
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+          <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+            ${images.map((_, i) => `<div class="w-2 h-2 rounded-full ${i === 0 ? 'bg-white' : 'bg-white/50'}" data-ddot="${i}"></div>`).join("")}
+          </div>
+          <div class="absolute top-3 right-3 bg-black/50 text-white text-xs px-2 py-1 rounded-full z-10">
+            <span data-dcounter>1</span> / ${images.length}
+          </div>
+        ` : ""}
+      </div>
+    `;
+  }
+
+  function slideDetail(dir) {
+    const slides = document.querySelectorAll("[data-dslide]");
+    const dots = document.querySelectorAll("[data-ddot]");
+    if (slides.length === 0) return;
+    detailSlide = (detailSlide + dir + slides.length) % slides.length;
+    slides.forEach((s, i) => {
+      s.classList.toggle("opacity-100", i === detailSlide);
+      s.classList.toggle("opacity-0", i !== detailSlide);
+      s.classList.toggle("pointer-events-none", i !== detailSlide);
+    });
+    dots.forEach((d, i) => {
+      d.classList.toggle("bg-white", i === detailSlide);
+      d.classList.toggle("bg-white/50", i !== detailSlide);
+    });
+    const counter = document.querySelector("[data-dcounter]");
+    if (counter) counter.textContent = detailSlide + 1;
+  }
+
+  async function loadCar() {
+    if (!carId) { showNotFound(); return; }
+    try {
+      const car = await getCar(carId);
+      document.getElementById("loading").classList.add("hidden");
+      document.getElementById("carDetail").classList.remove("hidden");
+
+      document.getElementById("carPrice").textContent = formatPrice(car.price);
+      document.getElementById("carTitle").textContent = `${car.year} ${car.brand ? car.brand.name : ''} ${car.model}`;
+      document.getElementById("carBrand").textContent = car.brand ? `${car.brand.name} - ${car.brand.country || ''}` : '';
+      document.getElementById("carYear").textContent = car.year;
+      document.getElementById("carMileage").textContent = `${car.mileage.toLocaleString()} km`;
+      document.getElementById("carTransmission").textContent = car.transmission;
+      document.getElementById("carFuel").textContent = car.fuel_type;
+      document.getElementById("carDescription").textContent = car.description || "Sin descripción disponible.";
+      document.getElementById("editBtn").href = `car-form.html?id=${car.id}`;
+
+      // Carrusel de imágenes
+      let images = [];
+      if (car.images && car.images.length > 0) {
+        images = car.images.map(img => img.image_url);
+      } else if (car.image_url) {
+        images = [car.image_url];
+      }
+      initDetailCarousel(images);
+
+      // WhatsApp
+      if (car.whatsapp) {
+        const num = car.whatsapp.replace(/\D/g, "");
+        document.getElementById("whatsappBtn").href = `https://wa.me/${num}?text=Hola, me interesa tu ${car.brand ? car.brand.name : ''} ${car.model} ${car.year} publicado en MotorsCars`;
+        document.getElementById("whatsappSection").classList.remove("hidden");
+      }
+
+      document.getElementById("deleteBtn").addEventListener("click", async () => {
+        if (!confirm("¿Estás seguro de que deseas eliminar este auto?")) return;
+        try {
+          await deleteCar(car.id);
+          showToast("Auto eliminado exitosamente");
+          setTimeout(() => window.location.href = "index.html", 1000);
+        } catch (e) {
+          showToast(e.message, "error");
+        }
+      });
+    } catch (e) {
+      showNotFound();
+    }
+  }
+
+  function showNotFound() {
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("notFound").classList.remove("hidden");
+  }
+
+  loadCar();
+</script>
+</body>
+</html>

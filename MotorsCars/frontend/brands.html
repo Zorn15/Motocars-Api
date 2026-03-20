@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Gestionar Marcas - MotorsCars</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: { "primary": "#1152d4", "background-light": "#f6f6f8", "background-dark": "#101622" },
+          fontFamily: { "display": ["Inter"] },
+          borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+
+<!-- Encabezado -->
+<header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+    <a href="index.html" class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary text-3xl">directions_car</span>
+      <h1 class="text-xl font-bold tracking-tight">MotorsCars</h1>
+    </a>
+    <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+      <a href="index.html" class="hover:text-primary transition-colors">Autos</a>
+      <a href="brands.html" class="text-primary">Marcas</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="car-form.html" class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-xl font-semibold text-sm transition-colors">
+        <span class="material-symbols-outlined text-sm">add_circle</span>
+        Vender Auto
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-3xl mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold mb-8">Gestionar Marcas</h2>
+
+  <!-- Formulario Agregar Marca -->
+  <form id="brandForm" class="bg-slate-100 dark:bg-slate-800 rounded-2xl p-6 mb-8 border border-slate-200 dark:border-slate-700">
+    <h3 class="font-bold text-lg mb-4">Agregar Nueva Marca</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="flex flex-col">
+        <label class="text-sm font-medium pb-1 text-slate-600 dark:text-slate-400">Nombre *</label>
+        <input id="brandName" required class="form-input rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-primary focus:border-primary h-11" placeholder="Ej. Chevrolet" type="text" />
+      </div>
+      <div class="flex flex-col">
+        <label class="text-sm font-medium pb-1 text-slate-600 dark:text-slate-400">País</label>
+        <input id="brandCountry" class="form-input rounded-xl border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-primary focus:border-primary h-11" placeholder="Ej. Estados Unidos" type="text" />
+      </div>
+      <div class="flex items-end">
+        <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl transition-colors">
+          Agregar Marca
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Lista de Marcas -->
+  <div id="brandGrid" class="space-y-3">
+    <!-- Cargado por JS -->
+  </div>
+  <div id="loading" class="text-center py-12">
+    <p class="text-slate-500">Cargando marcas...</p>
+  </div>
+  <div id="emptyState" class="hidden text-center py-12">
+    <span class="material-symbols-outlined text-5xl text-slate-300 dark:text-slate-700">category</span>
+    <p class="mt-4 text-slate-500">No hay marcas aún. Agrega una arriba.</p>
+  </div>
+</main>
+
+<!-- Navegación Móvil -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-100 dark:bg-background-dark/95 border-t border-slate-200 dark:border-slate-800 backdrop-blur-lg z-50">
+  <div class="flex items-center justify-around h-16">
+    <a class="flex flex-col items-center gap-1 text-slate-400" href="index.html">
+      <span class="material-symbols-outlined">home</span>
+      <span class="text-[10px] font-medium">Inicio</span>
+    </a>
+    <a class="flex flex-col items-center gap-1 text-primary" href="brands.html">
+      <span class="material-symbols-outlined">category</span>
+      <span class="text-[10px] font-medium">Marcas</span>
+    </a>
+    <a class="flex flex-col items-center gap-1 -mt-8" href="car-form.html">
+      <div class="bg-primary text-white p-3 rounded-full shadow-lg shadow-primary/40 border-4 border-background-light dark:border-background-dark">
+        <span class="material-symbols-outlined">add</span>
+      </div>
+      <span class="text-[10px] font-medium mt-1 text-slate-400">Vender</span>
+    </a>
+    <a class="flex flex-col items-center gap-1 text-slate-400" href="index.html">
+      <span class="material-symbols-outlined">search</span>
+      <span class="text-[10px] font-medium">Buscar</span>
+    </a>
+    <a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+      <span class="material-symbols-outlined">person</span>
+      <span class="text-[10px] font-medium">Perfil</span>
+    </a>
+  </div>
+</nav>
+
+<script src="/static/app.js"></script>
+<script>
+  async function loadBrands() {
+    const grid = document.getElementById("brandGrid");
+    const loading = document.getElementById("loading");
+    const empty = document.getElementById("emptyState");
+
+    try {
+      const brands = await getBrands();
+      loading.classList.add("hidden");
+
+      if (brands.length === 0) {
+        empty.classList.remove("hidden");
+        return;
+      }
+
+      grid.innerHTML = brands.map(b => `
+        <div class="flex items-center justify-between bg-slate-100 dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+          <div>
+            <h4 class="font-bold">${b.name}</h4>
+            <p class="text-sm text-slate-500 dark:text-slate-400">${b.country || 'País desconocido'}</p>
+          </div>
+          <div class="flex gap-2">
+            <a href="index.html?brand=${b.id}" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-primary" title="Ver autos">
+              <span class="material-symbols-outlined">visibility</span>
+            </a>
+            <button onclick="handleDeleteBrand(${b.id}, '${b.name.replace(/'/g, "\\'")}')" class="p-2 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/20 text-red-500" title="Eliminar">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </div>
+        </div>
+      `).join("");
+    } catch (e) {
+      loading.classList.add("hidden");
+      empty.classList.remove("hidden");
+      console.error("Error al cargar marcas:", e);
+    }
+  }
+
+  document.getElementById("brandForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById("brandName").value.trim(),
+      country: document.getElementById("brandCountry").value.trim() || null,
+    };
+    try {
+      await createBrand(data);
+      showToast("Marca agregada exitosamente");
+      document.getElementById("brandName").value = "";
+      document.getElementById("brandCountry").value = "";
+      document.getElementById("emptyState").classList.add("hidden");
+      loadBrands();
+    } catch (e) {
+      showToast(e.message, "error");
+    }
+  });
+
+  async function handleDeleteBrand(id, name) {
+    if (!confirm(`¿Eliminar "${name}"? Esto también eliminará todos los autos de esta marca.`)) return;
+    try {
+      await deleteBrand(id);
+      showToast("Marca eliminada exitosamente");
+      loadBrands();
+    } catch (e) {
+      showToast(e.message, "error");
+    }
+  }
+
+  loadBrands();
+</script>
+</body>
+</html>

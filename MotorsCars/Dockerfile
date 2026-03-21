@@ -25,4 +25,4 @@ EXPOSE 8080
 # Comando de inicio para producción
 # --host 0.0.0.0 es obligatorio en contenedores
 # --workers 1 es recomendado en Cloud Run (escala por instancias, no por workers)
-CMD uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT} --workers 1
+CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT} --workers 1 --app-dir backend

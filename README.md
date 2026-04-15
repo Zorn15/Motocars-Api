@@ -12,9 +12,9 @@ Sistema de marketplace de vehículos con dos entidades relacionadas:
 
 | Integrante | Responsabilidad |
 |------------|-----------------|
-| ***** | Backend (API REST con FastAPI) |
-| Oscar Alejandro | Frontend (HTML/CSS/JS con Tailwind) |
-| ***** | Base de datos y despliegue cloud |
+| Sebastian Blanco | DB |
+| Oscar Alejandro Morales Calderon | Frontend (HTML/CSS/JS con Tailwind) |
+| Oscar David Layton | Back-end despliegue cloud |
 
 ## Stack Tecnológico
 
